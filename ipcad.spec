@@ -11,6 +11,9 @@ Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-conf.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define         _sysconfdir             /etc/%{name}
+%define         _initdir                /etc/rc.d/init.d
+
 %description
 IPCAD stands for IP Cisco Accounting Daemon. It runs in background and
 listens traffic on the specified interfaces. It is compatible with
@@ -44,23 +47,31 @@ Domy¶lnie zablokowano dostêp rsh.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/{etc/init.d,usr/bin,usr/share/man/man{5,8},var/lib/ipcad}
+install -d $RPM_BUILD_ROOT/{%{_sysconfdir},%{_initdir},,usr/bin,usr/share/man/man{5,8},var/lib/ipcad}
 
 %{__make} install-bin install-man DESTDIR=$RPM_BUILD_ROOT
 
 install ipcad.conf $RPM_BUILD_ROOT%{_sysconfdir}
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/init.d
+install %{SOURCE1} $RPM_BUILD_ROOT%{_initdir}/ipcad
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%pre
+%post
+/sbin/chkconfig --add %{name}
+if [ -f /var/lock/subsys/%{name} ]; then
+	/etc/rc.d/init.d/%{name} restart 1>&2
+else
+	echo "Run \"/etc/rc.d/init.d/%{name} start\" to start %{name} daemon."
+fi
 
 %preun
-
-%post
-
-%postun
+if [ "$1" = "0" ]; then
+	if [ -f /var/lock/subsys/%{name} ]; then
+		/etc/rc.d/init.d/%{name} stop 1>&2
+	fi
+	/sbin/chkconfig --del %{name}
+fi
 
 %files
 %defattr(644,root,root,755)
@@ -69,4 +80,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man5/ipcad.conf.5.gz
 %{_mandir}/man8/ipcad.8.gz
 %{_sysconfdir}/ipcad.conf
+%attr (755,root,root) %{_initdir}/ipcad
 %dir /var/lib/ipcad
