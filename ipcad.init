@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+# ipcad		IP Cisco-compatible Accounting Daemon
+#
+# chkconfig:	345 85 15
+# description:	IP Cisco-compatible Accounting Daemon
+# processname:	ipcad
+# pidfile:	/var/run/ipcad.pid
+# config:	/etc/ftpd/ipcad.conf
+
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config
+[ -f /etc/sysconfig/ipcad ] && . /etc/sysconfig/ipcad
+
+# Check that networking is up.
+if is_no "${NETWORKING}"; then
+        # nls "ERROR: Networking is down. %s can't be run." <service>
+        msg_network_down ipcad
+        exit 1
+fi
+
+# See how we were called.
+case "$1" in
+  start)
+	# Check if the service is already running?
+        if [ ! -f /var/lock/subsys/ipcad ]; then
+		msg_starting ipcad
+		daemon ipcad
+	        RETVAL=$?
+    		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ipcad
+	else
+        	msg_already_running ProFTPD
+	        exit 1
+	fi
+	;;
+  stop)
+        # Stop daemons.
+	if [ -f /var/lock/subsys/proftpd ]; then
+                msg_stopping ipcad
+                killproc ipcad
+                rm -f /var/lock/subsys/ipcad /var/run/ipcad.pid > /dev/null 2>&1
+        else
+		msg_not_running ipcad
+	        exit 1
+	fi
+	;;
+  status)
+	status ipcad
+	exit $?
+	;;
+  restart|reload)
+	$0 stop
+	$0 start
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|status}"
+	exit 1
+	;;
+esac
+
+exit $RETVAL
