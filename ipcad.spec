@@ -7,6 +7,7 @@ License:	GPL
 Group:		Networking/Utilities
 Source0:	%{name}-%{version}.tar.gz
 Source1:	%{name}.init
+Source2:	%{name}.sysconfig
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-conf.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -47,12 +48,13 @@ Domy¶lnie zablokowano dostêp rsh.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/{%{_sysconfdir},%{_initdir},,usr/bin,usr/share/man/man{5,8},var/lib/ipcad}
+install -d $RPM_BUILD_ROOT/{%{_sysconfdir},%{_initdir},%{_sysconfdir}/sysconfig,usr/bin,usr/share/man/man{5,8},var/lib/ipcad}
 
 %{__make} install-bin install-man DESTDIR=$RPM_BUILD_ROOT
 
 install ipcad.conf $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_initdir}/ipcad
+install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/ipcad
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -80,5 +82,6 @@ fi
 %{_mandir}/man5/ipcad.conf.5.gz
 %{_mandir}/man8/ipcad.8.gz
 %{_sysconfdir}/ipcad.conf
+%{_sysconfdir}/sysconfig/ipcad
 %attr (755,root,root) %{_initdir}/ipcad
 %dir /var/lib/ipcad
