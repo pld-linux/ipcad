@@ -39,7 +39,7 @@ siê z nim po³±czyæ zdalnie poprzez rsh i wydawaæ ró¿ne polecenia (np.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/{etc,usr/bin,etc,usr/share/man/man{5,8},var/lib/ipcad}
 
-%{__make} install install-man DESTDIR=$RPM_BUILD_ROOT
+%{__make} install-bin install-man DESTDIR=$RPM_BUILD_ROOT
 
 install ipcad.conf $RPM_BUILD_ROOT%{_sysconfdir}
 
