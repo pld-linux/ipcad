@@ -4,5 +4,5 @@
 SERVICE_RUN_NICE_LEVEL="+5"
 
 # Cmdline options 
-IPCAD_OPTS="-drs"
+IPCAD_OPTS="-ds"
 
