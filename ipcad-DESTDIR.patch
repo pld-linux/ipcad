@@ -1,0 +1,22 @@
+diff -ru ipcad-2.6.3/Makefile.in ipcad-2.6.3-AlchemyX/Makefile.in
+--- ipcad-2.6.3/Makefile.in	Mon May 20 05:33:55 2002
++++ ipcad-2.6.3-AlchemyX/Makefile.in	Fri Dec 20 17:12:21 2002
+@@ -90,14 +90,14 @@
+ install: all install-bin install-conf
+ 
+ install-bin:
+-	${INSTALL} ipcad ${bindir}
++	${INSTALL} ipcad $(DESTDIR)/${bindir}
+ 
+ install-man: man
+-	${INSTALL} -m 444 ipcad.8 ${MAN8}/ipcad.8
+-	${INSTALL} -m 444 ipcad.conf.5 ${MAN5}/ipcad.conf.5
++	${INSTALL} -m 444 ipcad.8 $(DESTDIR)/${MAN8}/ipcad.8
++	${INSTALL} -m 444 ipcad.conf.5 $(DESTDIR)/${MAN5}/ipcad.conf.5
+ 
+ install-conf:
+-	${INSTALL} -m 644 ipcad.conf ${sysconfdir}/ipcad.conf.sample
++	${INSTALL} -m 644 ipcad.conf $(DESTDIR)/${sysconfdir}/ipcad.conf.sample
+ 	@echo "*****************************************************"
+ 	@echo "* Please copy ${sysconfdir}/ipcad.conf.sample to   *"
+ 	@echo "* ${sysconfdir}/ipcad.conf and edit appropriately. *"
