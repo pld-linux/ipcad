@@ -12,7 +12,6 @@ Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-conf.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define         _sysconfdir             /etc/%{name}
 %define         _initdir                /etc/rc.d/init.d
 
 %description
@@ -81,7 +80,7 @@ fi
 %attr(755,root,root) %{_bindir}/*
 %{_mandir}/man5/ipcad.conf.5.gz
 %{_mandir}/man8/ipcad.8.gz
-%{_sysconfdir}/ipcad.conf
-%{_sysconfdir}/sysconfig/ipcad
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ipcad.conf
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/sysconfig/ipcad
 %attr (755,root,root) %{_initdir}/ipcad
 %dir /var/lib/ipcad
