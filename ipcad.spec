@@ -17,12 +17,16 @@ Cisco format of accounting tables. Same as in Cisco you can connect to
 it via rsh and issue some specific command (e.g. "show ip accounting"
 or "shutdown").
 
+It has rsh support disabled by default.
+
 %description -l pl
 IPCAD to skrót od IP Cisco Accounting Daemon. Dzia³a w tle i
 nas³uchuje ruchu na wybranych interfejsach. Program jest kompatybilny
 z formatem tablic zliaczania ruchu Cisco. Tak samo jak w Cisco mo¿esz
 siê z nim po³±czyæ zdalnie poprzez rsh i wydawaæ ró¿ne polecenia (np.
 "show ip accounting" czy "shutdown").
+
+Domy¶lnie zablokowano dostêp rsh.
 
 %prep
 %setup -q
