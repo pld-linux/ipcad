@@ -41,7 +41,7 @@ case "$1" in
 	;;
   stop)
         # Stop daemons.
-	if [ -f /var/lock/subsys/proftpd ]; then
+	if [ -f /var/lock/subsys/ipcad ]; then
                 msg_stopping ipcad
                 killproc ipcad
                 rm -f /var/lock/subsys/ipcad /var/run/ipcad.pid > /dev/null 2>&1
