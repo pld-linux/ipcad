@@ -1,16 +1,14 @@
 Summary:	IP Cisco-compatible Accounting Daemon
 Summary(pl):	Demon do zliczania ruchu IP zgodny z Cisco
 Name:		ipcad
-Version:	2.6.3
-Release:	1
+Version:	3.6.5
+Release:	0.1
 License:	GPL
 Group:		Networking/Utilities
-Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	63b95d6c28051910c6751ec0f90b9243
+Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+# Source0-md5:	40fd71336cf00300d720b05f6e2d5362
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
-Patch0:		%{name}-DESTDIR.patch
-Patch1:		%{name}-conf.patch
 Requires(post,preun):	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -36,8 +34,6 @@ Domy¶lnie zablokowano dostêp rsh.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
 #%%{__aclocal}
@@ -54,7 +50,7 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_initdir},/etc/sysconfig} \
 
 %{__make} install-bin install-man DESTDIR=$RPM_BUILD_ROOT
 
-install ipcad.conf $RPM_BUILD_ROOT%{_sysconfdir}
+install ipcad.conf.default $RPM_BUILD_ROOT%{_sysconfdir}/ipcad.conf
 install %{SOURCE1} $RPM_BUILD_ROOT%{_initdir}/ipcad
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/ipcad
 
