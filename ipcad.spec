@@ -10,6 +10,7 @@ Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-conf.patch
+Requires(post,preun):	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define         _initdir                /etc/rc.d/init.d
@@ -26,7 +27,7 @@ It has rsh support disabled by default.
 %description -l pl
 IPCAD to skrót od IP Cisco Accounting Daemon. Dzia³a w tle i
 nas³uchuje ruchu na wybranych interfejsach. Program jest kompatybilny
-z formatem tablic zliaczania ruchu Cisco. Tak samo jak w Cisco mo¿esz
+z formatem tablic zliczania ruchu Cisco. Tak samo jak w Cisco mo¿na
 siê z nim po³±czyæ zdalnie poprzez rsh i wydawaæ ró¿ne polecenia (np.
 "show ip accounting" czy "shutdown").
 
@@ -47,13 +48,14 @@ Domy¶lnie zablokowano dostêp rsh.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/{%{_sysconfdir},%{_initdir},%{_sysconfdir}/sysconfig,usr/bin,usr/share/man/man{5,8},var/lib/ipcad}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_initdir},/etc/sysconfig} \
+	$RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man{5,8},/var/lib/ipcad}
 
 %{__make} install-bin install-man DESTDIR=$RPM_BUILD_ROOT
 
 install ipcad.conf $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_initdir}/ipcad
-install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/ipcad
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/ipcad
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -78,9 +80,9 @@ fi
 %defattr(644,root,root,755)
 %doc README ChangeLog
 %attr(755,root,root) %{_bindir}/*
-%{_mandir}/man5/ipcad.conf.5.gz
-%{_mandir}/man8/ipcad.8.gz
+%attr(754,root,root) %{_initdir}/ipcad
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/ipcad
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ipcad.conf
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/sysconfig/ipcad
-%attr (755,root,root) %{_initdir}/ipcad
+%{_mandir}/man5/ipcad.conf.5*
+%{_mandir}/man8/ipcad.8*
 %dir /var/lib/ipcad
