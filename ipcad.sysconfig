@@ -3,6 +3,6 @@
 # Nice level for proftpd
 SERVICE_RUN_NICE_LEVEL="+5"
 
-# Cmdline options 
+# Cmdline options
 IPCAD_OPTS="-ds"
 
