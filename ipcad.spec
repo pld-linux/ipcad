@@ -5,14 +5,13 @@ Version:	3.6.5
 Release:	0.1
 License:	GPL
 Group:		Networking/Utilities
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/ipcad/%{name}-%{version}.tar.gz
 # Source0-md5:	40fd71336cf00300d720b05f6e2d5362
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
+PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define         _initdir                /etc/rc.d/init.d
 
 %description
 IPCAD stands for IP Cisco Accounting Daemon. It runs in background and
@@ -45,13 +44,14 @@ Domy¶lnie zablokowano dostêp rsh.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_initdir},/etc/sysconfig} \
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d,/etc/sysconfig} \
 	$RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man{5,8},/var/lib/ipcad}
 
-%{__make} install-bin install-man DESTDIR=$RPM_BUILD_ROOT
+%{__make} install-bin install-man \
+	DESTDIR=$RPM_BUILD_ROOT
 
 install ipcad.conf.default $RPM_BUILD_ROOT%{_sysconfdir}/ipcad.conf
-install %{SOURCE1} $RPM_BUILD_ROOT%{_initdir}/ipcad
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/ipcad
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/ipcad
 
 %clean
@@ -77,7 +77,7 @@ fi
 %defattr(644,root,root,755)
 %doc README ChangeLog
 %attr(755,root,root) %{_bindir}/*
-%attr(754,root,root) %{_initdir}/ipcad
+%attr(754,root,root) /etc/rc.d/init.d/ipcad
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/ipcad
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ipcad.conf
 %{_mandir}/man5/ipcad.conf.5*
