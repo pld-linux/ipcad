@@ -7,6 +7,7 @@ License:	GPL
 Group:		Networking/Utilities
 Source0:	%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
+Patch1:		%{name}-conf.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -25,7 +26,8 @@ siê z nim po³±czyæ zdalnie poprzez rsh i wydawaæ ró¿ne polecenia (np.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1
 
 %build
 #%{__aclocal}
