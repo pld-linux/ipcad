@@ -30,8 +30,8 @@ case "$1" in
   start)
 	# Check if the service is already running?
         if [ ! -f /var/lock/subsys/ipcad ]; then
-		msg_starting ipcad $IPCAD_OPTS
-		daemon ipcad
+		msg_starting ipcad
+		daemon ipcad $IPCAD_OPTS
 	        RETVAL=$?
     		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ipcad
 	else
