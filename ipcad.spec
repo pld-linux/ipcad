@@ -39,10 +39,10 @@ Domy¶lnie zablokowano dostêp rsh.
 %patch1 -p1
 
 %build
-#%{__aclocal}
-#%{__autoconf}
-#%{__autoheader}
-#%{__automake}
+#%%{__aclocal}
+#%%{__autoconf}
+#%%{__autoheader}
+#%%{__automake}
 %configure
 %{__make}
 
