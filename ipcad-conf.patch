@@ -1,0 +1,84 @@
+diff -ru ipcad-2.6.3/ipcad.conf ipcad-2.6.3-AlchemyX/ipcad.conf
+--- ipcad-2.6.3/ipcad.conf	Mon May 20 05:33:55 2002
++++ ipcad-2.6.3-AlchemyX/ipcad.conf	Fri Dec 20 18:43:03 2002
+@@ -32,9 +32,10 @@
+ #  FreeBSD 3.x and elder kernels do not support this feature.
+ #
+ 
+-interface ed0 promisc;
+-interface ed1;
+-interface sbni0 input-only;
++#interface ed0 promisc;
++#interface ed1;
++#interface sbni0 input-only;
++interface eth0;
+ 
+ #
+ # aggregate <ip>/<masklen> strip <maskbits> ;
+@@ -44,9 +45,9 @@
+ #
+ #
+ 
+-aggregate 192.168.1.0/24 strip 32; /* Don't aggregate 192.168.1.0 */
++#aggregate 192.168.1.0/24 strip 32; /* Don't aggregate 192.168.1.0 */
+ 
+-aggregate 0.0.0.0/0 strip 24;	/* Aggregate all other networks */
++#aggregate 0.0.0.0/0 strip 24;	/* Aggregate all other networks */
+ 
+ 
+ ######################
+@@ -62,7 +63,8 @@
+ # which may be undesirable.
+ #
+ 
+-rsh enable at 127.0.0.1;
++rsh disable;
++#rsh enable at 127.0.0.1;
+ 
+ #
+ # RSH access rules:
+@@ -70,12 +72,12 @@
+ # rsh [<user>@]<host_addr> {admin|backup|[default]|view-only|deny} ;
+ #
+ 
+-rsh root@127.0.0.1 admin;       /* Can shutdown ipcad */
+-rsh staff@127.0.0.1 backup;     /* Can dump/restore/import accounting table */
+-rsh vlm@127.0.0.1;              /* Can view and modify accounting tables */
++#rsh root@127.0.0.1 admin;       /* Can shutdown ipcad */
++#rsh staff@127.0.0.1 backup;     /* Can dump/restore/import accounting table */
++#rsh vlm@127.0.0.1;              /* Can view and modify accounting tables */
+ /* Note the order! */
+-rsh luser@127.0.0.1 deny;       /* Deny this user from even viewing tables */
+-rsh 127.0.0.1 view-only;        /* Other users can view current tables */
++#rsh luser@127.0.0.1 deny;       /* Deny this user from even viewing tables */
++#rsh 127.0.0.1 view-only;        /* Other users can view current tables */
+ 
+ 
+ #################
+@@ -86,7 +88,7 @@
+ # Chroot to this directory before processing.
+ #
+ 
+-chroot = /adm/tmp;
++#chroot = /adm/tmp;
+ 
+ #
+ # UID/GID privileges dropping
+@@ -102,15 +104,14 @@
+ # and 'e' stands for "entries".
+ #
+ 
+-memory_limit = 1m;
++memory_limit = 16m;
+ 
+ #
+ # Dump memory table to this file on exit and read on startup
+ # (read about -s and -r options)
+ #
+ 
+-dumpfile = ipcad.dump;
+-
++dumpfile = /var/lib/ipcad/ipcad.dump;
+ 
+ #
+ # Few useful settings.
