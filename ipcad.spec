@@ -6,6 +6,7 @@ Release:	1
 License:	GPL
 Group:		Networking/Utilities
 Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	63b95d6c28051910c6751ec0f90b9243
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Patch0:		%{name}-DESTDIR.patch
