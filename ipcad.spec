@@ -2,7 +2,7 @@ Summary:	IP Cisco-compatible Accounting Daemon
 Summary(pl):	Demon do zliczania ruchu IP zgodny z Cisco
 Name:		ipcad
 Version:	2.6.3
-Release:	0
+Release:	1
 License:	GPL
 Group:		Networking/Utilities
 Source0:	%{name}-%{version}.tar.gz
