@@ -27,12 +27,11 @@ diff -ru ipcad-2.6.3/ipcad.conf ipcad-2.6.3-AlchemyX/ipcad.conf
  
  
  ######################
-@@ -62,7 +63,8 @@
+@@ -62,7 +62,7 @@
  # which may be undesirable.
  #
  
 -rsh enable at 127.0.0.1;
-+rsh disable;
 +#rsh enable at 127.0.0.1;
  
  #
