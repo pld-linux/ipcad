@@ -10,7 +10,7 @@ Source0:	http://dl.sourceforge.net/ipcad/%{name}-%{version}.tar.gz
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 URL:		http://ipcad.sourceforge.net/
-PreReq:		rc-scripts
+Requires:	rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
