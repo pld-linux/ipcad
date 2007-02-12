@@ -1,5 +1,5 @@
 Summary:	IP Cisco-compatible Accounting Daemon
-Summary(pl):	Demon do zliczania ruchu IP zgodny z Cisco
+Summary(pl.UTF-8):   Demon do zliczania ruchu IP zgodny z Cisco
 Name:		ipcad
 Version:	3.6.5
 Release:	0.1
@@ -23,14 +23,14 @@ or "shutdown").
 
 It has rsh support disabled by default.
 
-%description -l pl
-IPCAD to skrót od IP Cisco Accounting Daemon. Dzia³a w tle i
-nas³uchuje ruchu na wybranych interfejsach. Program jest kompatybilny
-z formatem tablic zliczania ruchu Cisco. Tak samo jak w Cisco mo¿na
-siê z nim po³±czyæ zdalnie poprzez rsh i wydawaæ ró¿ne polecenia (np.
+%description -l pl.UTF-8
+IPCAD to skrÃ³t od IP Cisco Accounting Daemon. DziaÅ‚a w tle i
+nasÅ‚uchuje ruchu na wybranych interfejsach. Program jest kompatybilny
+z formatem tablic zliczania ruchu Cisco. Tak samo jak w Cisco moÅ¼na
+siÄ™ z nim poÅ‚Ä…czyÄ‡ zdalnie poprzez rsh i wydawaÄ‡ rÃ³Å¼ne polecenia (np.
 "show ip accounting" czy "shutdown").
 
-Domy¶lnie zablokowano dostêp rsh.
+DomyÅ›lnie zablokowano dostÄ™p rsh.
 
 %prep
 %setup -q
