@@ -1,5 +1,5 @@
 Summary:	IP Cisco-compatible Accounting Daemon
-Summary(pl.UTF-8):   Demon do zliczania ruchu IP zgodny z Cisco
+Summary(pl.UTF-8):	Demon do zliczania ruchu IP zgodny z Cisco
 Name:		ipcad
 Version:	3.6.5
 Release:	0.1
